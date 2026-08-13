@@ -1,7 +1,7 @@
 name: padora_client
 description: "Padora — Android controller for WOLF RPG-style PC games."
 publish_to: 'none'
-version: 1.0.0+2
+version: 1.0.0+4
 
 environment:
   sdk: ^3.12.2
