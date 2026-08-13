@@ -1,9 +1,16 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'app_settings.dart';
 import 'app_version.dart';
 import 'key_catalog.dart';
 import 'legal_page.dart';
+import 'settings_backup.dart';
 
 const int _pickerCleared = -99998;
 
@@ -51,6 +58,105 @@ class SettingsPage extends StatelessWidget {
       return key.label;
     }
     return '${key.label}（${key.role}）';
+  }
+
+  Future<void> _exportSettings(BuildContext context) async {
+    try {
+      final json = settings.exportBackupJson();
+      final dir = await getTemporaryDirectory();
+      final file = File('${dir.path}/${SettingsBackup.fileName}');
+      await file.writeAsString(json, encoding: utf8);
+      await Share.shareXFiles(
+        [XFile(file.path, mimeType: 'application/json', name: SettingsBackup.fileName)],
+        subject: 'Padora settings backup',
+      );
+    } catch (error) {
+      if (!context.mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('書き出しに失敗しました: $error')),
+      );
+    }
+  }
+
+  Future<void> _importSettings(BuildContext context) async {
+    final picked = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: const ['json'],
+      withData: true,
+    );
+    if (picked == null || picked.files.isEmpty) {
+      return;
+    }
+
+    final bytes = picked.files.single.bytes;
+    if (bytes == null) {
+      if (!context.mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('ファイルを読み込めませんでした')),
+      );
+      return;
+    }
+
+    final raw = utf8.decode(bytes);
+    SettingsBackupPayload payload;
+    try {
+      payload = SettingsBackup.decodeJson(raw);
+    } on SettingsBackupException catch (error) {
+      if (!context.mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(error.message)),
+      );
+      return;
+    }
+
+    if (!context.mounted) {
+      return;
+    }
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('設定を読み込みますか？'),
+        content: const Text(
+          '現在のキー割り当て・表示設定を上書きします。\n接続用 IP は含まれません。',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('キャンセル'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('読み込む'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !context.mounted) {
+      return;
+    }
+
+    try {
+      await settings.applyBackup(payload);
+      if (!context.mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('設定を読み込みました')),
+      );
+    } catch (error) {
+      if (!context.mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('読み込みに失敗しました: $error')),
+      );
+    }
   }
 
   @override
@@ -217,6 +323,33 @@ class SettingsPage extends StatelessWidget {
                       ),
                       trailing: const Icon(Icons.chevron_right_rounded),
                       onTap: () => _editSlot(context, PadSlot.custom),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text('バックアップ', style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: 4),
+              Text(
+                '機種変更や再インストール用。接続 IP は含まれません。',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              const SizedBox(height: 8),
+              Card(
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: const Text('設定を書き出す'),
+                      subtitle: const Text('JSON ファイルとして共有'),
+                      trailing: const Icon(Icons.upload_rounded),
+                      onTap: () => _exportSettings(context),
+                    ),
+                    const Divider(height: 1),
+                    ListTile(
+                      title: const Text('設定を読み込む'),
+                      subtitle: const Text('保存した JSON から復元'),
+                      trailing: const Icon(Icons.download_rounded),
+                      onTap: () => _importSettings(context),
                     ),
                   ],
                 ),

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import 'key_catalog.dart';
+import 'settings_backup.dart';
 
 class AppSettings extends ChangeNotifier {
   static const _themeKey = 'theme_mode';
@@ -117,6 +118,45 @@ class AppSettings extends ChangeNotifier {
     mirrorActionButtons = value;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_mirrorActionsKey, value);
+    notifyListeners();
+  }
+
+  Map<String, dynamic> exportBackup() => SettingsBackup.encode(this);
+
+  String exportBackupJson() => SettingsBackup.encodeJson(this);
+
+  Future<void> importBackupJson(String raw) async {
+    await applyBackup(SettingsBackup.decodeJson(raw));
+  }
+
+  Future<void> applyBackup(SettingsBackupPayload payload) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    themeMode = payload.themeMode;
+    keepAwake = payload.keepAwake;
+    hapticFeedback = payload.hapticFeedback;
+    mirrorActionButtons = payload.mirrorActionButtons;
+    autoConnectOnLaunch = payload.autoConnectOnLaunch;
+    confirmId = payload.confirmId;
+    cancelId = payload.cancelId;
+    subId = payload.subId;
+    customId = payload.customId;
+
+    await prefs.setInt(_themeKey, themeMode.index);
+    await prefs.setBool(_keepAwakeKey, keepAwake);
+    await prefs.setBool(_hapticKey, hapticFeedback);
+    await prefs.setBool(_mirrorActionsKey, mirrorActionButtons);
+    await prefs.setBool(_autoConnectKey, autoConnectOnLaunch);
+    await prefs.setInt(_confirmKey, confirmId);
+    await prefs.setInt(_cancelKey, cancelId);
+    await prefs.setInt(_subKey, subId);
+    if (customId == null) {
+      await prefs.remove(_customKey);
+    } else {
+      await prefs.setInt(_customKey, customId!);
+    }
+
+    await _applyKeepAwake();
     notifyListeners();
   }
 
