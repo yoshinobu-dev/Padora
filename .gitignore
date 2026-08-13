@@ -1,0 +1,29 @@
+# Flutter
+client/.dart_tool/
+client/.flutter-plugins
+client/.flutter-plugins-dependencies
+client/.packages
+client/build/
+client/.pub-cache/
+client/.pub/
+client/coverage/
+
+# .NET
+host/**/bin/
+host/**/obj/
+host/**/*.user
+host/**/.vs/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.iml
+
+# Release artifacts (build locally; upload via GitHub Releases)
+dist/
+
+# Android Gradle build output
+client/android/build/

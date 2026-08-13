@@ -1,0 +1,130 @@
+# Padora
+
+PCで動く **WOLF RPGエディター製ゲーム**（およびキー操作の似た **ツクール** 作品）向けの、スマホ片手コントローラー（非公式）。
+
+スマホの少ボタン操作を Windows へキー入力として送ります。ゲーム本体の実行・エミュレートはしません。
+
+## 特徴
+
+- 十字 / 決定 / 取消 / Shift に絞ったシンプル操作
+- 上部に F4 / F11（表示補助）と設定（歯車）
+- 設定からキー割り当て・テーマ・画面常時点灯を変更
+- 左下のカスタム枠（F5 などでフルスクリーン切替にも便利）
+- 縦持ち最適化（閉じた Fold / 通常スマホ向け）
+- 十字・接続ボタンはライト＝黒 / ダーク＝白（アクション色は役割色のまま）
+
+## 構成
+
+| パス | 内容 |
+|------|------|
+| `client/` | Flutter Android アプリ |
+| `host/` | Windows 受信ソフト（C# / .NET 8） |
+| `protocol/` | UDP プロトコル |
+| `docs/PRODUCT.md` | プロダクト定義・ロードマップ |
+| `assets/icons/` | アプリアイコン（採用: D3d） |
+| `dist/` | ビルド成果物 |
+
+## 必要環境
+
+- Windows PC（.NET 8 ランタイム / SDK）
+- Android スマホ
+- 同一ネットワーク（家庭 LAN / Tailscale など）または USB テザリング
+
+## 使い方（配布物）
+
+### 1. Host（PC）
+
+最新の EXE 例:
+
+```text
+dist/host-d3d/Padora.Host.exe
+```
+
+起動すると UDP `21780` で待ち受け、画面に入力すべき IP 一覧が表示されます。
+
+### 2. Client（スマホ）
+
+```text
+dist/android/Padora.apk
+```
+
+をインストールして起動します。
+
+### 3. 接続
+
+1. PC で **Tailscale** を有効にし、**Host**（`Padora.Host.exe`）を起動
+2. スマホも **Tailscale** に参加（USB テザリング等で PC とリンク）
+3. Host に表示された **PC の Tailscale IP**（`100.x.x.x`）で接続  
+   - 初回のみ入力。**接続成功後は次回から自動入力**
+4. 「接続」を押す（設定で「起動時に自動接続」を ON にすると省略可）
+5. 前面のゲーム（またはメモ帳）をアクティブにして操作
+
+> 入力するのはスマホ自身の IP ではなく、Host に表示された **PC 側の IP** です。LAN 直結の場合は `192.168.x.x` などでも同様です。
+
+### 4. 操作
+
+| UI | デフォルトキー |
+|----|----------------|
+| 十字 | ↑ ↓ ← →（**短タップ＝1マス**、長押し＝連続移動） |
+| 決定 | Z |
+| 取消 | X |
+| Shift枠 | Shift |
+| カスタム枠 | 未設定（設定で割り当て） |
+| F4 / F11 | F4 / F11 |
+
+キー変更・接続・テーマ・「画面を消灯しない」・**短タップの触覚**は右上の **歯車** から行います。  
+ボタン長押しでは設定を開きません（連打しやすいようにしています）。
+
+## 開発者向け
+
+### ビルド
+
+```powershell
+# 初回のみ: Android 署名 keystore
+.\scripts\setup-android-signing.ps1
+
+# S1 配布物一式（署名 APK + Host ZIP + SHA256）
+.\scripts\release-s1.ps1
+```
+
+詳細: [`docs/RELEASE.md`](docs/RELEASE.md)
+
+#### 個別ビルド
+
+```powershell
+# Android APK
+cd client
+flutter pub get
+dart run flutter_launcher_icons
+flutter build apk --release
+
+# Windows Host（self-contained 単一 exe → dist/host-win64/）
+dotnet publish host\Padora.Host\Padora.Host.csproj -c Release -r win-x64 `
+  --self-contained true -p:PublishSingleFile=true `
+  -p:IncludeNativeLibrariesForSelfExtract=true -o dist\host-win64
+```
+
+### 通信
+
+- UDP / ポート `21780`
+- 6 バイト固定パケット（押下・離上）
+- 詳細は `protocol/PROTOCOL.md`
+
+## 方針メモ（将来公開時）
+
+| | 無料（想定） | 有料（想定） |
+|--|--------------|--------------|
+| 操作・キー割り当て | あり | — |
+| 接続 | 手動 IP など | より手軽な無線体験 |
+| 見た目 | 標準色 | カラーカスタム |
+
+公式・公認ではありません。WOLF RPGエディター / ツクールのロゴ・素材は使いません。
+
+## ドキュメント
+
+- プロダクト定義: [`docs/PRODUCT.md`](docs/PRODUCT.md)
+- **ストア公開ロードマップ:** [`docs/STORE_ROADMAP.md`](docs/STORE_ROADMAP.md)
+- リリース手順: [`docs/RELEASE.md`](docs/RELEASE.md)
+- 法務: [`docs/legal/`](docs/legal/)
+- Play 掲載文案: [`docs/store/PLAY_LISTING.md`](docs/store/PLAY_LISTING.md)
+- プロトコル: [`protocol/PROTOCOL.md`](protocol/PROTOCOL.md)
