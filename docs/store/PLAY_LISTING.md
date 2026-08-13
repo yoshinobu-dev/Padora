@@ -31,7 +31,7 @@ WOLF RPG エディター、RPG ツクール、各作品の開発元・権利者�
 ・Android スマートフォン（本アプリ）
 ・Windows PC 用「Padora Host」（別途ダウンロード必須）
   → {{HOST_DOWNLOAD_URL}}
-・Tailscale / 同一 LAN / USB テザリング等での接続
+・VPN / 同一 LAN / USB テザリング等での接続
 
 【想定している操作】
 十字キーと Z / X / Shift など、少数のキーで進める RPG・ADV・シミュレーション系（WOLF RPG エディター / ツクール系など）。

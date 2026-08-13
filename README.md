@@ -28,7 +28,7 @@ PCで動く **WOLF RPGエディター製ゲーム**（およびキー操作の�
 
 - Windows PC（.NET 8 ランタイム / SDK）
 - Android スマホ
-- 同一ネットワーク（家庭 LAN / Tailscale など）または USB テザリング
+- 同一ネットワーク（家庭 LAN / VPN など）または USB テザリング
 
 ## 使い方（配布物）
 
@@ -52,9 +52,9 @@ dist/android/Padora.apk
 
 ### 3. 接続
 
-1. PC で **Tailscale** を有効にし、**Host**（`Padora.Host.exe`）を起動
-2. スマホも **Tailscale** に参加（USB テザリング等で PC とリンク）
-3. Host に表示された **PC の Tailscale IP**（`100.x.x.x`）で接続  
+1. PC で **Host**（`Padora.Host.exe`）を起動
+2. PC とスマホが **同一ネットワーク** にいることを確認（LAN / VPN / USB テザリング等）
+3. Host に表示された **PC の IP アドレス** で接続
    - 初回のみ入力。**接続成功後は次回から自動入力**
 4. 「接続」を押す（設定で「起動時に自動接続」を ON にすると省略可）
 5. 前面のゲーム（またはメモ帳）をアクティブにして操作

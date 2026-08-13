@@ -27,7 +27,7 @@
 - [x] Android コントローラー（十字・Z/X・Shift・カスタム・F4/F11）
 - [x] 1 マスタップ・短タップ触覚・接続 IP 記憶
 - [x] Windows Host（UDP → SendInput）
-- [x] Tailscale / 有線での実用確認
+- [x] VPN / 有線での実用確認
 - [x] 非公式方針・アイコン・基本設定 UI
 
 ### ストア公開前に必須（未着手）
@@ -168,7 +168,7 @@
 
 - [ ] Play **クローズドテスト**（100 人規模）または **オープンテスト**
 - [ ] 既知の制限事項リスト公開
-  - Tailscale / LAN / USB テザリング
+  - VPN / LAN / USB テザリング
   - 斜め移動未最適化
   - UDP 平文・認証なし（同一 LAN 前提）
 - [ ] **Host 簡易ペアリング**（推奨）
@@ -218,7 +218,7 @@
 | 上部チップ | F4 / F11 固定 | **任意キー**（例: F4 全画面＋Ctrl） |
 | 斜め | なし（要望時 chord 検討） | カスタム枠に **chord**（↖↗↙↘） |
 | 反転 | v1.1 でボタンのみ左右反転（無料） | プロファイルごとに記憶 |
-| 接続 | 有線 / Tailscale | **Wi‑Fi 無線**（主軸） |
+| 接続 | 有線 / VPN | **Wi‑Fi 無線**（主軸） |
 
 - 斜めは D-pad 角ロングタップ **非採用**（blind 優先）
 - Z/X は **大ボタン**、Shift / Enter / 斜めは **小ボタン**
@@ -257,7 +257,7 @@ Play 公開前後で共通:
 | 形式 | `Padora-Host-win64.zip`（単一 exe 推奨） |
 | 取得元 | GitHub Releases（ストア説明からリンク） |
 | 更新 | アプリ `versionName` と Host `AssemblyVersion` を README/Release notes で対応表 |
-| セキュリティ | v1: 同一 LAN / Tailscale 前提 + 注意書き。β 以降: PIN/HMAC 検討 |
+| セキュリティ | v1: 同一 LAN / VPN 前提 + 注意書き。β 以降: PIN/HMAC 検討 |
 | Microsoft Store | **載せない**（WinForms + SendInput、審査・更新コスト対効果低） |
 
 ---
@@ -308,4 +308,4 @@ Pro（S6）は **v1 公開後に需要を見て** でよい。
 
 ---
 
-*最終更新: 2026-08 — Phase 2 完了・Tailscale 実用確認後*
+*最終更新: 2026-08 — Phase 2 完了・VPN 実用確認後*

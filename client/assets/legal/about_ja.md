@@ -16,7 +16,7 @@ Padora は、PC でプレイする **WOLF RPG エディター製ゲーム** や�
 ## 必要なもの
 
 - **Windows 用 Padora Host**（別途ダウンロード）
-- スマホと PC のネットワーク接続（Tailscale / LAN / USB テザリング等）
+- スマホと PC のネットワーク接続（VPN / LAN / USB テザリング等）
 
 ## ご利用について
 

@@ -61,5 +61,5 @@ dotnet publish host\Padora.Host\Padora.Host.csproj `
 
 ## 注意
 
-- Padora は **非公式** ツール。Release notes に Host 必須・Tailscale/LAN 等を記載。
+- Padora は **非公式** ツール。Release notes に Host 必須・VPN/LAN 等を記載。
 - UDP 認証なし — 同一ネットワーク前提。

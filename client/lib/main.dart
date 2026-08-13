@@ -90,7 +90,7 @@ class _PadPageState extends State<PadPage> {
       return;
     }
     _ipController.text = saved;
-    _status = '前回の IP を表示中（Tailscale / LAN）。接続を押してください';
+    _status = '前回の IP を表示中。接続を押してください';
   }
 
   @override
@@ -366,7 +366,7 @@ class _ConnectionCard extends StatelessWidget {
                   controller: ipController,
                   decoration: InputDecoration(
                     labelText: 'PC の IP',
-                    hintText: '例: 100.x.x.x（Tailscale）',
+                    hintText: '例: 192.168.x.x',
                     filled: true,
                     fillColor: scheme.surface,
                     border: OutlineInputBorder(
