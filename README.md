@@ -87,7 +87,18 @@ dist/android/Padora.apk
 .\scripts\release-s1.ps1
 ```
 
-詳細: [`docs/RELEASE.md`](docs/RELEASE.md)
+GitHub Release 例:
+
+```powershell
+git tag v1.0.0
+git push origin v1.0.0
+gh release create v1.0.0 `
+  dist/android/Padora.apk `
+  dist/Padora-Host-win64.zip `
+  dist/SHA256SUMS.txt `
+  --title "Padora 1.0.0" `
+  --notes-file docs/release-notes/v1.0.0.md
+```
 
 #### 個別ビルド
 
@@ -123,8 +134,6 @@ dotnet publish host\Padora.Host\Padora.Host.csproj -c Release -r win-x64 `
 ## ドキュメント
 
 - プロダクト定義: [`docs/PRODUCT.md`](docs/PRODUCT.md)
-- **ストア公開ロードマップ:** [`docs/STORE_ROADMAP.md`](docs/STORE_ROADMAP.md)
-- リリース手順: [`docs/RELEASE.md`](docs/RELEASE.md)
 - 法務: [`docs/legal/`](docs/legal/)
-- Play 掲載文案: [`docs/store/PLAY_LISTING.md`](docs/store/PLAY_LISTING.md)
+- リリースノート: [`docs/release-notes/`](docs/release-notes/)
 - プロトコル: [`protocol/PROTOCOL.md`](protocol/PROTOCOL.md)

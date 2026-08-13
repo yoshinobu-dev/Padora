@@ -147,5 +147,5 @@ Write-Host "  dist/SHA256SUMS.txt"
 
 Write-Host ""
 
-Write-Host "See docs/RELEASE.md for gh release create example."
+Write-Host "  gh release create v1.0.0 dist/android/Padora.apk dist/Padora-Host-win64.zip dist/SHA256SUMS.txt --title `"Padora 1.0.0`" --notes-file docs/release-notes/v1.0.0.md"
 
