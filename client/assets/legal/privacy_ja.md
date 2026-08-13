@@ -53,11 +53,11 @@ Host は .NET / Windows Forms を使用します。
 
 ## 8. 変更
 
-本ポリシーは必要に応じて更新します。重要な変更がある場合は、アプリ内または配布ページで告知します。
+本ポリシーは必要に応じて更新します。重要な変更がある場合は、アプリ内または https://github.com/yoshinobu-dev/Padora/releases で告知します。
 
 ## 9. お問い合わせ
 
-プライバシーに関する問い合わせは、配布ページに記載の連絡先（GitHub Issues 等）まで。
+プライバシーに関する問い合わせ: https://github.com/yoshinobu-dev/Padora/issues
 
 ---
 

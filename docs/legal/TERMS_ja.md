@@ -61,7 +61,7 @@ Host は、受信した操作指示に基づき PC 上でキーボード入力�
 
 ## 10. お問い合わせ
 
-不具合・問い合わせは、配布ページに記載の GitHub Issues 等の連絡先まで（公開前は開発者が指定する窓口）。
+不具合・問い合わせ: https://github.com/yoshinobu-dev/Padora/issues
 
 ---
 

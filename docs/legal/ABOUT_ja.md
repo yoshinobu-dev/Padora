@@ -15,7 +15,8 @@ Padora は、PC でプレイする **WOLF RPG エディター製ゲーム** や�
 
 ## 必要なもの
 
-- **Windows 用 Padora Host**（別途ダウンロード）
+- **Windows 用 Padora Host**（別途ダウンロード）  
+  https://github.com/yoshinobu-dev/Padora/releases/tag/v1.0.0
 - スマホと PC のネットワーク接続（VPN / LAN / USB テザリング等）
 
 ## ご利用について

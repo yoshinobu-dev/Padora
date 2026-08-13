@@ -32,23 +32,16 @@ PCで動く **WOLF RPGエディター製ゲーム**（およびキー操作の�
 
 ## 使い方（配布物）
 
+最新版: **https://github.com/yoshinobu-dev/Padora/releases/tag/v1.0.0**
+
 ### 1. Host（PC）
 
-最新の EXE 例:
-
-```text
-dist/host-d3d/Padora.Host.exe
-```
-
+[Release ページ](https://github.com/yoshinobu-dev/Padora/releases/tag/v1.0.0) から `Padora-Host-win64.zip` を取得し、`Padora.Host.exe` を起動します。
 起動すると UDP `21780` で待ち受け、画面に入力すべき IP 一覧が表示されます。
 
 ### 2. Client（スマホ）
 
-```text
-dist/android/Padora.apk
-```
-
-をインストールして起動します。
+同 Release ページの `Padora.apk` をインストールして起動します。
 
 ### 3. 接続
 
