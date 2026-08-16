@@ -168,6 +168,8 @@ dotnet publish host\Padora.Host\Padora.Host.csproj -c Release -r win-x64 `
 
 公式・公認ではありません。WOLF RPGエディター / ツクールのロゴ・素材は使いません。
 
+Padora が役に立ったら、[GitHub Sponsors](https://github.com/sponsors/yoshinobu-dev) での支援は歓迎します。必須ではありません。
+
 ## ドキュメント
 
 - プロダクト定義: [`docs/PRODUCT.md`](docs/PRODUCT.md)
